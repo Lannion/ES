@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,7 +93,7 @@ ROOT_URLCONF = 'enrollment.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'Frontend/src'],  # Modify this path if needed
+        'DIRS': [os.path.join(BASE_DIR, '../Frontend/build')],  # Path to React build files
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,9 +106,12 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '../Frontend/build/static')]
+
 WSGI_APPLICATION = 'enrollment.wsgi.application'
 
 # Database settings
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -185,6 +189,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 # Email settings for sending reset emails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
