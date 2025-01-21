@@ -1,28 +1,18 @@
-FROM python:3.10-slim
+FROM node:16-alpine
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    libmariadb-dev \
-    libmariadb-dev-compat \
-    build-essential \
-    && apt-get clean
-
-# Set working directory
 WORKDIR /app
 
-# Copy requirements.txt
-COPY requirements.txt .
+# Install dependencies
+COPY package.json package-lock.json ./
+RUN npm install
 
-# Upgrade pip and install dependencies
-RUN python -m pip install --upgrade pip \
-    && python -m pip install --no-cache-dir -r requirements.txt
-
-# Copy project files
+# Copy files and build the React app
 COPY . .
+RUN npm run build
+
+# Serve the app
+RUN npm install -g serve
+CMD ["serve", "-s", "build"]
 
 # Expose port
-EXPOSE 8000
-
-
-# Run the application
-CMD ["python", "Backend/Enrollment/manage.py", "runserver", "0.0.0.0:8000"]
+EXPOSE 3000
