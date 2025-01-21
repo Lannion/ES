@@ -91,7 +91,7 @@ function App() {
 
   // Redirect Component
   const RedirectToAdmin = () => {
-    window.location.href = "http://127.0.0.1:8000/admin/login/";
+    window.location.href = "backend-production-7f56.up.railway.app/admin/login/";
     return null; // Return null since we don't render anything
   };
 
