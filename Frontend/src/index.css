@@ -1,0 +1,33 @@
+/* Tailwind Base and Utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* For Mobile View: Ensure Sidebar behaves like it's collapsed */
+@media (max-width: 768px) {
+  .sidebar-collapsed {
+    display: none; /* Hide the sidebar in mobile view */
+  }
+
+  .main-content {
+    margin-left: 0 !important; /* Make sure content is not shifted by the sidebar */
+    padding-left: 1rem; /* Adjust padding to make sure content is not too close to the edge */
+  }
+}
+
+/* Custom container styling */
+body {
+  @apply bg-gradient-to-b from-[#e4ecfa] to-[#fefae0] flex items-center justify-center min-h-screen;
+}
+
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+  @apply ring-2 ring-blue-500;
+}
+
+/* Ensures consistent width and responsiveness */
+.container {
+  @apply w-[350px] sm:w-[400px];
+}
